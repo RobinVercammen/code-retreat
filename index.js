@@ -1,9 +1,1 @@
-var request = require("request"), PF = require("./pathsolver.js"), axios = require("axios")
-request("http://mazeretreat.azurewebsites.net/mazes/09a655dd-6cbd-4793-89cf-604d2b0a8330", function (e, t, a) {
-    // split input to array and replace # with 0 and so on
-    var r = JSON.parse(a).split("\r\n"), n = [], o = [], s = r.map(function (e, t) { return e.split("").map(function (e, a) { return "#" === e ? 1 : ("S" === e && (n = [a, t]), "F" === e && (o = [a, t]), 0) }) })
-    console.log(s)
-    // s is grid in form [[],[],[]]
-    var i = new PF.Grid(s), u = new PF.AStarFinder, d = u.findPath(n[0], n[1], o[0], o[1], i), c = d.map(function (e) { return e.join(",") }).join(";"), l = { TeamName: "Robin en Yassine", MazeId: "09a655dd-6cbd-4793-89cf-604d2b0a8330", Solution: c }
-    axios["default"].post("http://mazeretreat.azurewebsites.net/solutions/09a655dd-6cbd-4793-89cf-604d2b0a8330", l).then(console.log, console.log)
-})
+var request=require("request"),PF=require("./pathsolver.js"),axios=require("axios");request("http://mazeretreat.azurewebsites.net/mazes/51b8269c-00e2-4486-ac05-f4490942c0c9",function(e,t,a){var r=JSON.parse(a).split("\r\n"),n=[],o=[],i=[];s=r.map(function(e,t){return e.split("").map(function(e,a){return"#"===e?1:("S"===e&&(n=[a,t]),"F"===e&&(o=[a,t]),"1"===e&&i.push([a,t]),0)})});var c=new PF.Grid(s),u=new PF.AStarFinder,l=u.findPath(n[0],n[1],i[0][0],i[0][1],c),p=u.findPath(i[1][0]-1,i[1][1],o[0],o[1],c),t=l.concat(p);console.log(p);var d={TeamName:"MINIFIED",MazeId:"09a655dd-6cbd-4793-89cf-604d2b0a8330",Solution:t.map(function(e){return e.join(",")}).join(";")};axios.default.post("http://mazeretreat.azurewebsites.net/solutions/51b8269c-00e2-4486-ac05-f4490942c0c9",d).then(console.log,console.log)});
